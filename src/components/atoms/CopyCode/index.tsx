@@ -1,0 +1,24 @@
+"use client";
+
+import { Typography } from "../Typography";
+import { Button } from "../Button";
+import { CopyIcon } from "@/components/icons/Copy";
+import toast from "react-hot-toast";
+
+export const CopyCode = ({ code }: { code: string }) => {
+	const handleCopy = () => {
+		navigator.clipboard.writeText(code);
+		toast("Copied to clipboard");
+	};
+
+	return (
+		<div className="flex items-center px-2 py-1 bg-background-secondary border border-border-primary rounded-md">
+			<Typography as="span" variant="label" visual="small">
+				{code}
+			</Typography>
+			<Button variant="ghost" onlyIcon onClick={handleCopy}>
+				<CopyIcon />
+			</Button>
+		</div>
+	);
+};

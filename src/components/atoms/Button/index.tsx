@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { Typography } from "../Typography";
 
 export type TButtonProperties = PropsWithChildren<{
-	variant: "primary";
+	variant: "primary" | "ghost";
 	onlyIcon?: boolean;
 	fill?: boolean;
 }> &
@@ -13,6 +13,7 @@ const styles = {
 	base: "cursor-pointer",
 	primary:
 		"text-inverse-primary bg-background-inverse-primary border border-border-inverse-primary rounded-lg px-2.5 py-1.5",
+	ghost: "",
 };
 
 const onlyIconStyles = "flex items-center justify-center w-6 h-6";

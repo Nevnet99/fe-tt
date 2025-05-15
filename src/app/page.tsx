@@ -1,5 +1,6 @@
 import { Avatar } from "@/components/atoms/Avatar";
 import { Card } from "@/components/atoms/Card";
+import { CopyCode } from "@/components/atoms/CopyCode";
 import { Typography } from "@/components/atoms/Typography";
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
 						Get started
 					</Typography>
 				</Card.Header>
+				<CopyCode code="1234567890" />
 			</Card.Container>
 		</main>
 	);
