@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+  --font-mono: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+
   --background-primary:#FFFFFF;
   --background-secondary: #FAFAFA;
   --background-extensions-background-blue: #DBEAFE;
@@ -30,10 +33,8 @@
 }
 
 @theme inline {
-  --*: initial;
-
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-inter);
+  --font-mono: var(--font-mono);
   
   --color-primary: var(--content-primary);
   --color-secondary: var(--content-secondary);
@@ -65,4 +66,16 @@
 body {
   font-family: var(--font-inter);
   background-color: var(--background-secondary);
+  color: var(--color-primary);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
