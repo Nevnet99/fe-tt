@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-primary:#FFFFFF;
+  --background-secondary: #FAFAFA;
+  --background-extensions-background-blue: #DBEAFE;
+  --background-extensions-background-green: #DCFCE7;
+
+  --border-primary: #E4E4E7;
+  --border-secondary: #F4F4F5;
+
+  --content-primary: #09090B;
+  --content-secondary: #71717A;
+  --content-tertiary: #A1A1AA;
+  --content-extensions-content-blue: #1D4ED8;
+  --content-extensions-content-green: #15803D;
+
+
+  --border-radius-rounded-md: .375rem; /* 6px */
+  --border-radius-rounded-lg: .5rem; /* 8px */
+  --border-radius-rounded-xl: .75rem; /* 12px */
+
+  --spacing-1: .25rem; /* 4px */
+  --spacing-1_5: .375rem; /* 6px */
+  --spacing-2: .5rem; /* 8px */
+  --spacing-4: 1rem; /* 16px */
+
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-8: 2rem; /* 32px */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --*: initial;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-inter);
+  
+  --color-primary: var(--content-primary);
+  --color-secondary: var(--content-secondary);
+  --color-tertiary: var(--content-tertiary);
+  --color-extensions-content-blue: var(--content-extensions-content-blue);
+  --color-extensions-content-green: var(--content-extensions-content-green);
+
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-extensions-background-blue: var(--background-extensions-background-blue);
+  --color-background-extensions-background-green: var(--background-extensions-background-green);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+
+  --radius-rounded-md: var(--border-radius-rounded-md);
+  --radius-rounded-lg: var(--border-radius-rounded-lg);
+  --radius-rounded-xl: var(--border-radius-rounded-xl);
+
+  --spacing-1: var(--spacing-1);
+  --spacing-1_5: var(--spacing-1_5);
+  --spacing-2: var(--spacing-2);
+  --spacing-4: var(--spacing-4);
+  --spacing-6: var(--spacing-6);
+  --spacing-8: var(--spacing-8);
+  
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+  background-color: var(--background-secondary);
 }
