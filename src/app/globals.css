@@ -8,11 +8,14 @@
   --background-secondary: #FAFAFA;
   --background-extensions-background-blue: #DBEAFE;
   --background-extensions-background-green: #DCFCE7;
+  --background-inverse-primary: #18181B;
 
   --border-primary: #E4E4E7;
   --border-secondary: #F4F4F5;
+  --border-inverse-primary: #3F3F46;
 
   --content-primary: #09090B;
+  --content-inverse-primary: #FFFFFF;
   --content-secondary: #71717A;
   --content-tertiary: #A1A1AA;
   --content-extensions-content-blue: #1D4ED8;
@@ -37,6 +40,7 @@
   --font-mono: var(--font-mono);
   
   --color-primary: var(--content-primary);
+  --color-inverse-primary: var(--content-inverse-primary);
   --color-secondary: var(--content-secondary);
   --color-tertiary: var(--content-tertiary);
   --color-extensions-content-blue: var(--content-extensions-content-blue);
@@ -44,11 +48,13 @@
 
   --color-background-primary: var(--background-primary);
   --color-background-secondary: var(--background-secondary);
+  --color-background-inverse-primary: var(--background-inverse-primary);
   --color-background-extensions-background-blue: var(--background-extensions-background-blue);
   --color-background-extensions-background-green: var(--background-extensions-background-green);
 
   --color-border-primary: var(--border-primary);
   --color-border-secondary: var(--border-secondary);
+  --color-border-inverse-primary: var(--border-inverse-primary);
 
   --radius-rounded-md: var(--border-radius-rounded-md);
   --radius-rounded-lg: var(--border-radius-rounded-lg);
