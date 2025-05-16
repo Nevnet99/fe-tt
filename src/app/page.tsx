@@ -1,9 +1,11 @@
 import { Avatar } from "@/components/atoms/Avatar";
+import { Button } from "@/components/atoms/Button";
 import { Card } from "@/components/atoms/Card";
 import { CopyCode } from "@/components/atoms/CopyCode";
 import { Status } from "@/components/atoms/Status";
 import { Typography } from "@/components/atoms/Typography";
 import { Table } from "@/components/molecules/Table";
+import Link from "next/link";
 
 export default function Home() {
 	return (
@@ -90,6 +92,11 @@ export default function Home() {
 						Get started
 					</Typography>
 				</Card.Header>
+				<Link href="/fine-tuning-job">
+					<Button as="span" variant="primary">
+						New Fine-tuning Job
+					</Button>
+				</Link>
 			</Card.Container>
 		</main>
 	);

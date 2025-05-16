@@ -1,14 +1,23 @@
+import { twMerge } from "tailwind-merge";
 import { Typography } from "../../atoms/Typography";
 
 export type TFormProgressProperties = {
 	step: number;
 	max: number;
+	className?: string;
 };
 
-export const FormProgress = ({ step, max }: TFormProgressProperties) => {
+export const FormProgress = ({
+	step,
+	max,
+	className,
+}: TFormProgressProperties) => {
 	return (
 		<Typography
-			className="bg-background-secondary border border-border-primary rounded-lg px-3"
+			className={twMerge(
+				"bg-background-secondary border border-border-primary rounded-lg px-3",
+				className,
+			)}
 			as="p"
 			variant="code"
 			visual="large"

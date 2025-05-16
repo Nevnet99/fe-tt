@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { Typography } from "../Typography";
 
 export type TButtonProperties = PropsWithChildren<{
+	as?: "button" | "span";
 	variant: "primary" | "ghost";
 	onlyIcon?: boolean;
 	fill?: boolean;
@@ -19,6 +20,7 @@ const styles = {
 const onlyIconStyles = "flex items-center justify-center w-6 h-6";
 
 export const Button = ({
+	as = "button",
 	children,
 	variant,
 	onlyIcon,
@@ -26,8 +28,10 @@ export const Button = ({
 	fill = false,
 	...props
 }: TButtonProperties) => {
+	const Component = as;
+
 	return (
-		<button
+		<Component
 			className={twMerge(
 				fill && "w-full",
 				styles.base,
@@ -40,6 +44,6 @@ export const Button = ({
 			<Typography as="span" variant="label" visual="small">
 				{children}
 			</Typography>
-		</button>
+		</Component>
 	);
 };
