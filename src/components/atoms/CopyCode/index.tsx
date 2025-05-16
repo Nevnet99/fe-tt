@@ -12,7 +12,7 @@ export const CopyCode = ({ code }: { code: string }) => {
 	};
 
 	return (
-		<div className="flex items-center px-2 py-1 bg-background-secondary border border-border-primary rounded-md w-fit">
+		<div className="flex items-center px-2 py-1 gap-2 bg-background-secondary border border-border-primary rounded-md w-fit">
 			<Typography as="p" variant="code" visual="small">
 				{code}
 			</Typography>
