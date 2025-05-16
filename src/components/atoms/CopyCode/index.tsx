@@ -2,7 +2,7 @@
 
 import { Typography } from "../Typography";
 import { Button } from "../Button";
-import { CopyIcon } from "@/components/icons/Copy";
+import { CopyIcon } from "../../icons/Copy";
 import toast from "react-hot-toast";
 
 export const CopyCode = ({ code }: { code: string }) => {
@@ -12,8 +12,8 @@ export const CopyCode = ({ code }: { code: string }) => {
 	};
 
 	return (
-		<div className="flex items-center px-2 py-1 bg-background-secondary border border-border-primary rounded-md">
-			<Typography as="span" variant="label" visual="small">
+		<div className="flex items-center px-2 py-1 bg-background-secondary border border-border-primary rounded-md w-fit">
+			<Typography as="p" variant="code" visual="small">
 				{code}
 			</Typography>
 			<Button variant="ghost" onlyIcon onClick={handleCopy}>

@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { Typography } from "../Typography";
 
 export type TStatusProperties = {
+	className?: string;
 	variant: "completed" | "running";
 };
 
@@ -16,11 +17,12 @@ const styles = {
 	},
 };
 
-export const Status = ({ variant }: TStatusProperties) => {
+export const Status = ({ className, variant }: TStatusProperties) => {
 	return (
 		<div
 			className={twMerge(
-				"rounded-md px-1.5 py-1 text-sm",
+				className,
+				"rounded-md px-1.5 py-1 text-sm w-fit",
 				styles.container[variant],
 			)}
 		>

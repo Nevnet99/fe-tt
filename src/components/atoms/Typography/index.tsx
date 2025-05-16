@@ -41,7 +41,7 @@ const styles = {
 	},
 	label: {
 		base: "text-md font-medium leading-[24px] tracking-[0]",
-		small: "text-sm font-medium leading-[20px] tracking-[0]",
+		small: "text-sm font-semibold leading-[20px] tracking-[0]",
 	},
 	paragraph: {
 		small: "text-sm font-medium leading-[20px] tracking-[0]",
@@ -50,8 +50,8 @@ const styles = {
 	},
 	code: {
 		large: "text-lg font-mono leading-[28px] tracking-[0]",
-		small: "text-sm font-normal font-mono leading-[20px] tracking-[0]",
-		tiny: "text-xs font-normal font-mono leading-[12px] tracking-[0]",
+		small: "text-sm font-mono leading-[20px] tracking-[0]",
+		tiny: "text-xs font-mono leading-[12px] tracking-[0]",
 	},
 } as const;
 
