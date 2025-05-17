@@ -2,6 +2,8 @@
 
 import { Button } from "@/components/atoms/Button";
 import { Card } from "@/components/atoms/Card";
+import { RHFControllerNumberInput } from "@/components/atoms/NumberInput";
+import { Select } from "@/components/atoms/Select";
 import { TextField } from "@/components/atoms/TextField";
 import { Typography } from "@/components/atoms/Typography";
 import { FormHeader } from "@/components/molecules/FormHeader";
@@ -13,6 +15,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FineTuningFormProperties = {
 	className?: string;
@@ -43,7 +46,12 @@ const stepTitle = (step: number) => {
 
 const formSchema = z
 	.object({
-		name: z.string().min(1, { message: "Name is required" }),
+		name: z
+			.string()
+			.min(1, { message: "Name is required" })
+			.regex(/^[a-z0-9-]+$/, {
+				message: "Can only contain lowercase letters, numbers, and dashes.",
+			}),
 		baseModel: z.string().min(1, { message: "Base model is required" }),
 		epochs: z.number().min(1, { message: "Epochs must be at least 1" }),
 		warmupEpochs: z
@@ -64,22 +72,41 @@ const formSchema = z
 	});
 
 export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
-	const { register, handleSubmit } = useForm<z.infer<typeof formSchema>>();
 	const {
 		createJob: { mutate: createJob },
 	} = useJobs({});
-
 	const {
-		models: { data: models },
+		models: { data: models, isLoading: isModelsLoading },
 	} = useModels({ fetchOnInit: true });
 
+	const {
+		register,
+		handleSubmit,
+		control,
+		formState: { errors },
+		trigger,
+	} = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			name: "",
+			baseModel: "placeholder",
+			epochs: 6,
+			warmupEpochs: 2,
+			evaluationEpochs: 2,
+			learningRate: 0.00002,
+		},
+		mode: "all",
+	});
 	const [stateStep, setStateStep] = useState(1);
-
-	const handleStep = (step: number) => {
-		setStateStep(step);
-	};
-
 	const { title, description } = stepTitle(stateStep);
+
+	const handleStep = async (step: number) => {
+		const isValid = await trigger();
+
+		if (isValid) {
+			setStateStep(step);
+		}
+	};
 
 	const onSubmit = (values: z.infer<typeof formSchema>) => {
 		console.log(values);
@@ -127,7 +154,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 					max={3}
 				/>
 				{stateStep === 1 && (
-					<>
+					<div className="flex flex-col gap-12">
 						<TextField
 							id="name"
 							errorId="name-error"
@@ -135,18 +162,26 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 							helper="Can only contain lowercase alphanumeric characters and dashes."
 							placeholder="Job name"
 							{...register("name")}
+							error={errors.name?.message}
 						/>
 
-						<label className="flex flex-col gap-2">
-							Base model
-							<select id="base-model" {...register("baseModel")}>
-								{models?.data?.map((model) => (
-									<option key={model.id} value={model.id}>
-										{model.displayName}
-									</option>
-								))}
-							</select>
-						</label>
+						<Select
+							id="base-model"
+							errorId="base-model-error"
+							label="Select base model"
+							isLoading={isModelsLoading}
+							options={[
+								{
+									value: "placeholder",
+									label: "Select a model",
+								},
+								...(models?.data?.map((model) => ({
+									value: model.id,
+									label: model.displayName,
+								})) || []),
+							]}
+							{...register("baseModel")}
+						/>
 
 						<Button
 							variant="primary"
@@ -155,50 +190,46 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 						>
 							Next: Configure
 						</Button>
-					</>
+					</div>
 				)}
 
 				{stateStep === 2 && (
 					<>
-						<label className="flex flex-col gap-2">
-							Epochs
-							<input
-								type="number"
-								{...register("epochs", {
-									valueAsNumber: true,
-								})}
-							/>
-						</label>
+						<RHFControllerNumberInput
+							label="Epochs"
+							id="epochs"
+							errorId="epochs-error"
+							control={control}
+							name="epochs"
+							error={errors.epochs?.message}
+						/>
 
-						<label className="flex flex-col gap-2">
-							Warmup epochs
-							<input
-								type="number"
-								{...register("warmupEpochs", {
-									valueAsNumber: true,
-								})}
-							/>
-						</label>
+						<RHFControllerNumberInput
+							label="Warmup epochs"
+							id="warmup-epochs"
+							errorId="warmup-epochs-error"
+							control={control}
+							name="warmupEpochs"
+							error={errors.warmupEpochs?.message}
+						/>
 
-						<label className="flex flex-col gap-2">
-							Evaluation epochs
-							<input
-								type="number"
-								{...register("evaluationEpochs", {
-									valueAsNumber: true,
-								})}
-							/>
-						</label>
+						<RHFControllerNumberInput
+							label="Evaluation epochs"
+							id="evaluation-epochs"
+							errorId="evaluation-epochs-error"
+							control={control}
+							name="evaluationEpochs"
+							error={errors.evaluationEpochs?.message}
+						/>
 
-						<label className="flex flex-col gap-2">
-							Learning rate
-							<input
-								type="number"
-								{...register("learningRate", {
-									valueAsNumber: true,
-								})}
-							/>
-						</label>
+						<TextField
+							id="learning-rate"
+							errorId="learning-rate-error"
+							label="Learning rate"
+							helper="Controls how much the model updates during training"
+							{...register("learningRate", { valueAsNumber: true })}
+							error={errors.learningRate?.message}
+						/>
 
 						<Button
 							variant="primary"

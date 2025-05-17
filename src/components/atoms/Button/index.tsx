@@ -13,7 +13,7 @@ export type TButtonProperties = PropsWithChildren<{
 const styles = {
 	base: "cursor-pointer",
 	primary:
-		"text-inverse-primary bg-background-inverse-primary border border-border-inverse-primary rounded-lg px-2.5 py-1.5",
+		"text-inverse-primary bg-background-inverse-primary border border-border-inverse-primary rounded-lg px-2.5 py-1.5 disabled:opacity-50",
 	ghost: "",
 };
 

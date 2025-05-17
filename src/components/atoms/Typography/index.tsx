@@ -24,7 +24,7 @@ type TParagraphVariant = {
 type TCodeVariant = {
 	as: "p";
 	variant?: "code";
-	visual?: "small" | "tiny" | "large";
+	visual?: "small" | "tiny" | "large" | "base";
 } & React.HTMLAttributes<
 	HTMLHeadingElement | HTMLParagraphElement | HTMLSpanElement
 >;
@@ -52,6 +52,7 @@ const styles = {
 		large: "text-lg font-mono leading-[28px] tracking-[0]",
 		small: "text-sm font-mono leading-[20px] tracking-[0]",
 		tiny: "text-xs font-mono leading-[12px] tracking-[0]",
+		base: "text-md font-mono leading-[24px] tracking-[0]",
 	},
 } as const;
 

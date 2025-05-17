@@ -6,6 +6,7 @@
 
   --background-primary:#FFFFFF;
   --background-secondary: #FAFAFA;
+  --background-tertiary: #F4F4F5;
   --background-extensions-background-blue: #DBEAFE;
   --background-extensions-background-green: #DCFCE7;
   --background-inverse-primary: #18181B;
@@ -49,6 +50,7 @@
 
   --color-background-primary: var(--background-primary);
   --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
   --color-background-inverse-primary: var(--background-inverse-primary);
   --color-background-extensions-background-blue: var(--background-extensions-background-blue);
   --color-background-extensions-background-green: var(--background-extensions-background-green);
@@ -78,6 +80,12 @@
 
    .shadow-shadow-sm {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@layer utilities {
+  .all-unset {
+    all: unset;
   }
 }
 
