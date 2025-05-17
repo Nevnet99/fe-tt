@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ReviewCard } from "@/components/molecules/ReviewCard";
 
 type FineTuningFormProperties = {
 	className?: string;
@@ -85,6 +86,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 		control,
 		formState: { errors },
 		trigger,
+		getValues,
 	} = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -97,6 +99,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 		},
 		mode: "all",
 	});
+
 	const [stateStep, setStateStep] = useState(1);
 	const { title, description } = stepTitle(stateStep);
 
@@ -122,6 +125,8 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 
 		redirect("/");
 	};
+
+	const values = getValues();
 
 	return (
 		<form
@@ -242,9 +247,38 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 				)}
 
 				{stateStep === 3 && (
-					<Button variant="primary" className="w-full" type="submit">
-						Start fine tuning
-					</Button>
+					<>
+						<ul className="flex flex-col gap-4">
+							<li>
+								<ReviewCard title={values.name} icon="wrench" />
+							</li>
+							<li>
+								<ReviewCard
+									icon="chat"
+									title="Model"
+									subtitle={[
+										models?.data?.find((model) => model.id === values.baseModel)
+											?.displayName || "Models failed to load",
+									]}
+								/>
+							</li>
+							<li>
+								<ReviewCard
+									icon="cog"
+									title="Configuration"
+									subtitle={[
+										`Epochs: ${values.epochs}`,
+										`Eval Epochs: ${values.warmupEpochs}`,
+										`Warmup Epochs: ${values.warmupEpochs}`,
+										`Learning rate: ${values.learningRate}`,
+									]}
+								/>
+							</li>
+						</ul>
+						<Button variant="primary" className="w-full" type="submit">
+							Start fine tuning
+						</Button>
+					</>
 				)}
 			</Card.Container>
 		</form>

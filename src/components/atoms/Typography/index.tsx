@@ -40,7 +40,7 @@ const styles = {
 		small: "text-2xl font-semibold leading-[32px] tracking-[-0.025em]",
 	},
 	label: {
-		base: "text-md font-medium leading-[24px] tracking-[0]",
+		base: "text-md font-semibold leading-[24px] tracking-[0]",
 		small: "text-sm font-semibold leading-[20px] tracking-[0]",
 	},
 	paragraph: {
