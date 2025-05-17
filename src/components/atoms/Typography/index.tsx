@@ -35,9 +35,9 @@ export type TTypographyProperties = PropsWithChildren<
 
 const styles = {
 	heading: {
-		large: "text-4xl font-medium leading-[40px] tracking-[-0.025em]",
+		large: "text-4xl font-semibold leading-[40px] tracking-[-0.025em]",
 		tiny: "text-xl font-medium leading-[28px] tracking-[-0.025em]",
-		small: "text-2xl font-medium leading-[32px] tracking-[-0.025em]",
+		small: "text-2xl font-semibold leading-[32px] tracking-[-0.025em]",
 	},
 	label: {
 		base: "text-md font-medium leading-[24px] tracking-[0]",

@@ -1,6 +1,7 @@
 import api from "@/lib/axios";
 import { queryClient } from "@/lib/QueryProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 export type TJob = {
   id: string;
@@ -36,6 +37,19 @@ export const useJobs = ({ id, fetchOnInit = false }: { id?: string, fetchOnInit?
     mutationFn: (job: TJobInput) => api.post<TJob>('/jobs', job),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['jobs'] })
+      toast.success('Job created successfully', {
+        id: 'job-created'
+      })
+    },
+    onMutate: () => {
+      toast.loading('Creating job...', {
+        id: 'job-created'
+      })
+    },
+    onError: () => {
+      toast.error('Failed to create job', {
+        id: 'job-created'
+      })
     }
   })
 
@@ -43,6 +57,19 @@ export const useJobs = ({ id, fetchOnInit = false }: { id?: string, fetchOnInit?
     mutationFn: (id: string) => api.delete<TJob>(`/jobs/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['jobs'] })
+      toast.success('Job deleted successfully', {
+        id: 'job-deleted'
+      })
+    },
+    onMutate: () => {
+      toast.loading('Deleting job...', {
+        id: 'job-deleted'
+      })
+    },
+    onError: () => {
+      toast.error('Failed to delete job', {
+        id: 'job-deleted'
+      })
     }
   })
 
@@ -56,7 +83,7 @@ export const useJobs = ({ id, fetchOnInit = false }: { id?: string, fetchOnInit?
     getJobs: {
       ...getJobs
     },
-    addJob: {
+    createJob: {
       ...createJob
     },
     deleteJob: {

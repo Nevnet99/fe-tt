@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export type TModel = {
   id: string;
-  model: string;
+  displayName: string;
 }
 
 
