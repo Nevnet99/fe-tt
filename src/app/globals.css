@@ -20,7 +20,7 @@
   --content-tertiary: #A1A1AA;
   --content-extensions-content-blue: #1D4ED8;
   --content-extensions-content-green: #15803D;
-
+  --content-extensions-content-red: #B91C1C;
 
   --border-radius-rounded-md: .375rem; /* 6px */
   --border-radius-rounded-lg: .5rem; /* 8px */
@@ -45,6 +45,7 @@
   --color-tertiary: var(--content-tertiary);
   --color-extensions-content-blue: var(--content-extensions-content-blue);
   --color-extensions-content-green: var(--content-extensions-content-green);
+  --color-extensions-content-red: var(--content-extensions-content-red);
 
   --color-background-primary: var(--background-primary);
   --color-background-secondary: var(--background-secondary);

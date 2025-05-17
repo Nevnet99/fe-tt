@@ -21,7 +21,7 @@ describe("Typography", () => {
 		);
 
 		expect(screen.getByText("Hello World")).toHaveClass(
-			"text-4xl font-medium leading-[40px] tracking-[-0.025em]",
+			"text-4xl font-semibold leading-[40px] tracking-[-0.025em]",
 		);
 	});
 });
