@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/atoms/Button";
 import { Card } from "@/components/atoms/Card";
+import { TextField } from "@/components/atoms/TextField";
 import { Typography } from "@/components/atoms/Typography";
 import { FormHeader } from "@/components/molecules/FormHeader";
 import { FormProgress } from "@/components/molecules/FormProgress";
@@ -127,10 +128,14 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 				/>
 				{stateStep === 1 && (
 					<>
-						<label className="flex flex-col gap-2">
-							Name your job
-							<input type="text" placeholder="Job name" {...register("name")} />
-						</label>
+						<TextField
+							id="name"
+							errorId="name-error"
+							label="Name your job"
+							helper="Can only contain lowercase alphanumeric characters and dashes."
+							placeholder="Job name"
+							{...register("name")}
+						/>
 
 						<label className="flex flex-col gap-2">
 							Base model

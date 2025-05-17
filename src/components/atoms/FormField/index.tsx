@@ -38,6 +38,7 @@ export const FormField = ({
 				)}
 				{error && (
 					<Typography
+						id={errorId}
 						className="text-extensions-content-red"
 						as="p"
 						variant="paragraph"
