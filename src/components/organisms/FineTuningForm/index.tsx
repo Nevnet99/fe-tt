@@ -84,7 +84,11 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 		createJob: { mutate: createJob },
 	} = useJobs({});
 	const {
-		models: { data: models, isLoading: isModelsLoading },
+		models: {
+			data: models,
+			isLoading: isModelsLoading,
+			isError: isModelsError,
+		},
 	} = useModels({ fetchOnInit: true });
 
 	const {
@@ -179,24 +183,32 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 							/>
 						</div>
 						<div className="row-start-2">
-							<Select
-								id="base-model"
-								errorId="base-model-error"
-								label="Select base model"
-								isLoading={isModelsLoading}
-								options={[
-									{
-										value: "placeholder",
-										label: "Select a model",
-									},
-									...(models?.data?.map((model) => ({
-										value: model.id,
-										label: model.displayName,
-									})) || []),
-								]}
-								error={errors.baseModel?.message}
-								{...register("baseModel")}
-							/>
+							{isModelsError && (
+								<ErrorNotice
+									className="w-2/5"
+									message="Error fetching models, please try again later"
+								/>
+							)}
+							{!isModelsError && (
+								<Select
+									id="base-model"
+									errorId="base-model-error"
+									label="Select base model"
+									isLoading={isModelsLoading}
+									options={[
+										{
+											value: "placeholder",
+											label: "Select a model",
+										},
+										...(models?.data?.map((model) => ({
+											value: model.id,
+											label: model.displayName,
+										})) || []),
+									]}
+									error={errors.baseModel?.message}
+									{...register("baseModel")}
+								/>
+							)}
 						</div>
 
 						<Button
@@ -212,7 +224,10 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 				{stateStep === 2 && (
 					<>
 						{errors.epochTotalError && (
-							<ErrorNotice message={errors.epochTotalError.message} />
+							<ErrorNotice
+								className="w-2/5"
+								message={errors.epochTotalError.message}
+							/>
 						)}
 						<div className="grid grid-cols-2 gap-10">
 							<div className="w-1/2">

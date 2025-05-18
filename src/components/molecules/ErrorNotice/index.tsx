@@ -1,9 +1,20 @@
 import { Typography } from "@/components/atoms/Typography";
-
-export const ErrorNotice = ({ message }: { message?: string }) => {
+import { twMerge } from "tailwind-merge";
+export const ErrorNotice = ({
+	className,
+	message,
+}: {
+	className?: string;
+	message?: string;
+}) => {
 	if (!message) return null;
 	return (
-		<div className="bg-background-extensions-background-red rounded-lg p-4 my-4 w-2/5">
+		<div
+			className={twMerge(
+				"bg-background-extensions-background-red rounded-lg p-4 my-4",
+				className,
+			)}
+		>
 			<Typography
 				className="text-extensions-content-red"
 				as="p"

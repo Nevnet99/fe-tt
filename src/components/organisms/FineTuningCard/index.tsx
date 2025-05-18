@@ -6,6 +6,7 @@ import { Status } from "@/components/atoms/Status";
 import { Typography } from "@/components/atoms/Typography";
 import { Close } from "@/components/icons/Delete";
 import { CopyCode } from "@/components/molecules/CopyCode";
+import { ErrorNotice } from "@/components/molecules/ErrorNotice";
 import { SummaryChartCard } from "@/components/molecules/SummaryChartCard";
 import { Table } from "@/components/molecules/Table";
 import { useJobs } from "@/services/useJobs";
@@ -14,7 +15,7 @@ import React from "react";
 
 export const FineTuningCard = () => {
 	const {
-		getJobs: { data, isLoading },
+		getJobs: { data, isLoading, isError },
 		deleteJob: { mutate: deleteJob },
 	} = useJobs({ fetchOnInit: true });
 
@@ -23,6 +24,14 @@ export const FineTuningCard = () => {
 	const handleDeleteJob = (id: string) => {
 		deleteJob(id);
 	};
+
+	if (isError) {
+		return (
+			<Card.Container className="col-span-12 md:col-span-6">
+				<ErrorNotice message="Error fetching jobs, please try again later" />
+			</Card.Container>
+		);
+	}
 
 	return (
 		<Card.Container className="col-span-12 md:col-span-6">
