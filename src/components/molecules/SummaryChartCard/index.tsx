@@ -3,6 +3,8 @@ import { PieChart } from "../../atoms/PieChart";
 import { Typography } from "../../atoms/Typography";
 import { toTitle } from "../../../utils/toTitle";
 import React from "react";
+import { Pip } from "@/components/atoms/Pip";
+import { twMerge } from "tailwind-merge";
 
 type TSummaryChartCardProperties = {
 	summary: {
@@ -44,8 +46,20 @@ export const SummaryChartCard = ({ summary }: TSummaryChartCardProperties) => {
 				{summaryKeys.map((key) => {
 					const summaryValue = summary[key as keyof typeof summary];
 
+					const pipColor = {
+						completed: "bg-extensions-content-green",
+						running: "bg-extensions-content-blue",
+						failed: "bg-extensions-content-red",
+					};
+
 					return (
 						<li key={key} className="flex items-center justify-between gap-1">
+							<Pip
+								className={twMerge(
+									pipColor[key as keyof typeof pipColor],
+									"mr-1.5",
+								)}
+							/>
 							<Typography
 								className="text-secondary"
 								as="p"
