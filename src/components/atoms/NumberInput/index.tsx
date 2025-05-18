@@ -7,6 +7,7 @@ import {
 	type FieldValues,
 	type Path,
 } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 
 type TNumberInputProperties = {
 	label: string;
@@ -18,6 +19,7 @@ type TNumberInputProperties = {
 	defaultValue?: number;
 	min?: number;
 	max?: number;
+	className?: string;
 };
 
 // Quick note: This is a quick implementation of a number input that is not fully
@@ -32,6 +34,7 @@ export const NumberInput = ({
 	defaultValue,
 	min,
 	max,
+	className,
 }: TNumberInputProperties) => {
 	const [value, setValue] = useState(defaultValue || 1);
 
@@ -59,7 +62,12 @@ export const NumberInput = ({
 			inputId={id}
 			errorId={errorId}
 		>
-			<div className="flex items-center gap-2 bg-background-tertiary rounded-lg max-w-[98px] py-2 border border-border-primary">
+			<div
+				className={twMerge(
+					className,
+					"flex items-center gap-2 bg-background-tertiary rounded-lg max-w-[98px] py-2 border border-border-primary",
+				)}
+			>
 				<button
 					className="w-[40px] cursor-pointer"
 					aria-label="Decrement"
@@ -91,6 +99,8 @@ type TRHFControllerNumberInputProperties<T extends FieldValues> = {
 	control: Control<T>;
 	name: Path<T>;
 	error?: string;
+	className?: string;
+	helper?: string;
 };
 
 export const RHFControllerNumberInput = <T extends FieldValues>({
@@ -100,6 +110,7 @@ export const RHFControllerNumberInput = <T extends FieldValues>({
 	control,
 	name,
 	error,
+	helper,
 }: TRHFControllerNumberInputProperties<T>) => {
 	return (
 		<Controller
@@ -113,6 +124,7 @@ export const RHFControllerNumberInput = <T extends FieldValues>({
 					onValueChange={field.onChange}
 					defaultValue={field.value}
 					error={error}
+					helper={helper}
 				/>
 			)}
 		/>

@@ -53,7 +53,12 @@ const formSchema = z
 			.regex(/^[a-z0-9-]+$/, {
 				message: "Can only contain lowercase letters, numbers, and dashes.",
 			}),
-		baseModel: z.string().min(1, { message: "Base model is required" }),
+		baseModel: z
+			.string()
+			.min(1, { message: "Base model is required" })
+			.refine((value) => value !== "placeholder", {
+				message: "Base model is required",
+			}),
 		epochs: z.number().min(1, { message: "Epochs must be at least 1" }),
 		warmupEpochs: z
 			.number()
@@ -159,38 +164,42 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 					max={3}
 				/>
 				{stateStep === 1 && (
-					<div className="flex flex-col gap-12">
-						<TextField
-							id="name"
-							errorId="name-error"
-							label="Name your job"
-							helper="Can only contain lowercase alphanumeric characters and dashes."
-							placeholder="Job name"
-							{...register("name")}
-							error={errors.name?.message}
-						/>
-
-						<Select
-							id="base-model"
-							errorId="base-model-error"
-							label="Select base model"
-							isLoading={isModelsLoading}
-							options={[
-								{
-									value: "placeholder",
-									label: "Select a model",
-								},
-								...(models?.data?.map((model) => ({
-									value: model.id,
-									label: model.displayName,
-								})) || []),
-							]}
-							{...register("baseModel")}
-						/>
+					<div className="grid grid-cols-2 grid-rows-3 gap-y-12">
+						<div className="row-start-1">
+							<TextField
+								id="name"
+								errorId="name-error"
+								label="Name your job"
+								helper="Can only contain lowercase alphanumeric characters and dashes."
+								placeholder="Job name"
+								{...register("name")}
+								error={errors.name?.message}
+							/>
+						</div>
+						<div className="row-start-2">
+							<Select
+								id="base-model"
+								errorId="base-model-error"
+								label="Select base model"
+								isLoading={isModelsLoading}
+								options={[
+									{
+										value: "placeholder",
+										label: "Select a model",
+									},
+									...(models?.data?.map((model) => ({
+										value: model.id,
+										label: model.displayName,
+									})) || []),
+								]}
+								error={errors.baseModel?.message}
+								{...register("baseModel")}
+							/>
+						</div>
 
 						<Button
 							variant="primary"
-							className="w-full"
+							className="row-start-3 w-1/4 h-fit"
 							onClick={() => handleStep(2)}
 						>
 							Next: Configure
@@ -199,51 +208,61 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 				)}
 
 				{stateStep === 2 && (
-					<>
-						<RHFControllerNumberInput
-							label="Epochs"
-							id="epochs"
-							errorId="epochs-error"
-							control={control}
-							name="epochs"
-							error={errors.epochs?.message}
-						/>
-
-						<RHFControllerNumberInput
-							label="Warmup epochs"
-							id="warmup-epochs"
-							errorId="warmup-epochs-error"
-							control={control}
-							name="warmupEpochs"
-							error={errors.warmupEpochs?.message}
-						/>
-
-						<RHFControllerNumberInput
-							label="Evaluation epochs"
-							id="evaluation-epochs"
-							errorId="evaluation-epochs-error"
-							control={control}
-							name="evaluationEpochs"
-							error={errors.evaluationEpochs?.message}
-						/>
-
-						<TextField
-							id="learning-rate"
-							errorId="learning-rate-error"
-							label="Learning rate"
-							helper="Controls how much the model updates during training"
-							{...register("learningRate", { valueAsNumber: true })}
-							error={errors.learningRate?.message}
-						/>
+					<div className="grid grid-cols-2 gap-10">
+						<div className="w-1/2">
+							<RHFControllerNumberInput
+								label="Epochs"
+								id="epochs"
+								errorId="epochs-error"
+								control={control}
+								name="epochs"
+								error={errors.epochs?.message}
+								helper={
+									"Number of times the model sees the full dataset during training"
+								}
+							/>
+						</div>
+						<div className="w-1/2">
+							<RHFControllerNumberInput
+								label="Warmup epochs"
+								id="warmup-epochs"
+								errorId="warmup-epochs-error"
+								control={control}
+								name="warmupEpochs"
+								error={errors.warmupEpochs?.message}
+								helper="Gradually increases the learning rate at the start of training"
+							/>
+						</div>
+						<div className="w-1/2">
+							<RHFControllerNumberInput
+								label="Evaluation epochs"
+								id="evaluation-epochs"
+								errorId="evaluation-epochs-error"
+								control={control}
+								name="evaluationEpochs"
+								error={errors.evaluationEpochs?.message}
+								helper="How often the model is evaluated during training"
+							/>
+						</div>
+						<div className="w-1/2">
+							<TextField
+								id="learning-rate"
+								errorId="learning-rate-error"
+								label="Learning rate"
+								error={errors.learningRate?.message}
+								helper="Controls how much the model updates during training"
+								{...register("learningRate", { valueAsNumber: true })}
+							/>
+						</div>
 
 						<Button
+							className="w-1/4 h-fit"
 							variant="primary"
-							className="w-full"
 							onClick={() => handleStep(3)}
 						>
 							Next: Review
 						</Button>
-					</>
+					</div>
 				)}
 
 				{stateStep === 3 && (
@@ -275,7 +294,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 								/>
 							</li>
 						</ul>
-						<Button variant="primary" className="w-full" type="submit">
+						<Button variant="primary" className="w-1/4 h-fit" type="submit">
 							Start fine tuning
 						</Button>
 					</>
