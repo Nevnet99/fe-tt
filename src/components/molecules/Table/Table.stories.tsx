@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Table } from ".";
-import { CopyCode } from "@/components/atoms/CopyCode";
+import { CopyCode } from "@/components/molecules/CopyCode";
 import { Status } from "@/components/atoms/Status";
 
 const meta = {

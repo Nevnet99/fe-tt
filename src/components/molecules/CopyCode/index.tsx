@@ -1,7 +1,7 @@
 "use client";
 
-import { Typography } from "../Typography";
-import { Button } from "../Button";
+import { Typography } from "../../atoms/Typography";
+import { Button } from "../../atoms/Button";
 import { CopyIcon } from "../../icons/Copy";
 import toast from "react-hot-toast";
 

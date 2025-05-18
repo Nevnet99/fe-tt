@@ -3,13 +3,14 @@
 import { Avatar } from "@/components/atoms/Avatar";
 import { Button } from "@/components/atoms/Button";
 import { Card } from "@/components/atoms/Card";
-import { CopyCode } from "@/components/atoms/CopyCode";
+import { CopyCode } from "@/components/molecules/CopyCode";
 import { Status } from "@/components/atoms/Status";
 import { Typography } from "@/components/atoms/Typography";
 import { Table } from "@/components/molecules/Table";
 import { useJobs } from "@/services/useJobs";
 import { format, formatDistanceToNow } from "date-fns";
 import Link from "next/link";
+import { HorizontalCard } from "@/components/organisms/HorizontalCard";
 
 export default function Home() {
 	const {
@@ -106,17 +107,19 @@ export default function Home() {
 					</div>
 				)}
 			</Card.Container>
+
 			<Card.Container className="col-span-12 md:col-span-6 h-fit">
 				<Card.Header>
 					<Typography as="h2" variant="heading" visual="tiny">
 						Get started
 					</Typography>
 				</Card.Header>
-				<Link href="/fine-tuning-job">
-					<Button as="span" variant="primary">
-						New Fine-tuning Job
-					</Button>
-				</Link>
+				<HorizontalCard
+					title="Get started with Fine-tuning"
+					href="/fine-tuning-job"
+					buttonText="New Fine-tuning Job"
+					description="Simple, ready-to-use inference endpoints that are paid for per request. No commitments, only pay for what you use with Nscale Serverless."
+				/>
 			</Card.Container>
 		</main>
 	);

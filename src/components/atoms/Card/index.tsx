@@ -1,15 +1,22 @@
 import type { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
 
-export type TCardProperties = PropsWithChildren<
-	React.HTMLAttributes<HTMLDivElement>
->;
+export type TCardProperties = PropsWithChildren<{
+	padding?: boolean;
+}> &
+	React.HTMLAttributes<HTMLDivElement>;
 
-const Container = ({ children, className, ...props }: TCardProperties) => {
+const Container = ({
+	children,
+	className,
+	padding = true,
+	...props
+}: TCardProperties) => {
 	return (
 		<article
 			className={twMerge(
-				"bg-background-primary border-1 border-border-primary rounded-xl px-6 pt-6 pb-8",
+				"bg-background-primary border-1 border-border-primary rounded-xl",
+				padding && "px-6 pt-6 pb-8",
 				className,
 			)}
 			{...props}

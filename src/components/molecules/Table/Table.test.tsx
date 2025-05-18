@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Table, type TTableHeader, type TTableRow } from ".";
-import { CopyCode } from "../../atoms/CopyCode";
+import { CopyCode } from "../CopyCode";
 import { Status } from "../../atoms/Status";
 import { describe, expect, it } from "vitest";
 
