@@ -8,6 +8,7 @@ import { Status } from "@/components/atoms/Status";
 import { Typography } from "@/components/atoms/Typography";
 import { Table } from "@/components/molecules/Table";
 import { useJobs } from "@/services/useJobs";
+import { format, formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 
 export default function Home() {
@@ -50,7 +51,31 @@ export default function Home() {
 								id: job.id,
 								cells: [
 									{ id: "1", render: <CopyCode code={job.id} /> },
-									{ id: "2", render: <p>Temp Date</p> },
+									{
+										id: "2",
+										render: (
+											<div>
+												<Typography
+													className="text-secondary"
+													as="p"
+													variant="paragraph"
+													visual="small"
+												>
+													{format(new Date(job.createdAt), "MMM d, yyyy")}
+												</Typography>
+												<Typography
+													className="text-tertiary"
+													as="p"
+													variant="paragraph"
+													visual="tiny"
+												>
+													{formatDistanceToNow(new Date(job.createdAt), {
+														addSuffix: true,
+													})}
+												</Typography>
+											</div>
+										),
+									},
 									{
 										id: "3",
 										render: (
