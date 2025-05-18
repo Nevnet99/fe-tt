@@ -20,14 +20,6 @@ export const Primary: Story = {
 	},
 };
 
-export const PrimaryIcon: Story = {
-	args: {
-		variant: "primary",
-		onlyIcon: true,
-		children: "🔍",
-	},
-};
-
 export const PrimaryFill: Story = {
 	args: {
 		variant: "primary",

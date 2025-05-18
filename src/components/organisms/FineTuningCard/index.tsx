@@ -1,0 +1,112 @@
+"use client";
+
+import { Card } from "@/components/atoms/Card";
+import { PieChart } from "@/components/atoms/PieChart";
+import { Status } from "@/components/atoms/Status";
+import { Typography } from "@/components/atoms/Typography";
+import { CopyCode } from "@/components/molecules/CopyCode";
+import { SummaryChartCard } from "@/components/molecules/SummaryChartCard";
+import { Table } from "@/components/molecules/Table";
+import { useJobs } from "@/services/useJobs";
+import { format, formatDistanceToNow } from "date-fns";
+import React from "react";
+
+export const FineTuningCard = () => {
+	const {
+		getJobs: { data, isLoading },
+	} = useJobs({ fetchOnInit: true });
+
+	const summary = data?.data.summary;
+
+	return (
+		<Card.Container className="col-span-12 md:col-span-6">
+			<Card.Header>
+				<Typography as="h2" variant="heading" visual="tiny">
+					Fine tuning usage
+				</Typography>
+				<Typography
+					className="text-tertiary"
+					as="p"
+					variant="paragraph"
+					visual="small"
+				>
+					Card description
+				</Typography>
+			</Card.Header>
+
+			{summary && <SummaryChartCard summary={summary} />}
+			{isLoading && (
+				<div className="flex flex-col gap-2 animate-pulse">
+					<div className="h-30 bg-gray-200 rounded w-full" />
+				</div>
+			)}
+
+			{data && (
+				<Table
+					headers={[
+						{ id: "header-1", label: "Job ID", align: "left" },
+						{ id: "header-2", label: "Date", align: "left" },
+						{ id: "header-3", label: "Status", align: "right" },
+					]}
+					rows={
+						data?.data.jobs.map((job) => ({
+							id: job.id,
+							cells: [
+								{ id: "1", render: <CopyCode code={job.id} /> },
+								{
+									id: "2",
+									render: (
+										<div>
+											<Typography
+												className="text-secondary"
+												as="p"
+												variant="paragraph"
+												visual="small"
+											>
+												{format(new Date(job.createdAt), "MMM d, yyyy")}
+											</Typography>
+											<Typography
+												className="text-tertiary"
+												as="p"
+												variant="paragraph"
+												visual="tiny"
+											>
+												{formatDistanceToNow(new Date(job.createdAt), {
+													addSuffix: true,
+												})}
+											</Typography>
+										</div>
+									),
+								},
+								{
+									id: "3",
+									render: (
+										<Status
+											variant={
+												job.status.toLowerCase() as
+													| "completed"
+													| "running"
+													| "failed"
+											}
+										/>
+									),
+									align: "right",
+								},
+							],
+						})) || []
+					}
+				/>
+			)}
+			{isLoading && (
+				<div className="flex flex-col gap-2 animate-pulse">
+					<div className="h-8 bg-gray-200 rounded w-full" />
+					<div className="h-8 bg-gray-200 rounded w-full" />
+					<div className="h-8 bg-gray-200 rounded w-full" />
+					<div className="h-8 bg-gray-200 rounded w-full" />
+					<div className="h-8 bg-gray-200 rounded w-full" />
+					<div className="h-8 bg-gray-200 rounded w-full" />
+				</div>
+			)}
+		</Card.Container>
+	);
+};

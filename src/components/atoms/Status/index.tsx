@@ -1,5 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { Typography } from "../Typography";
+import { toTitle } from "../../../utils/toTitle";
 
 export type TStatusProperties = {
 	className?: string;
@@ -34,7 +35,7 @@ export const Status = ({ className, variant }: TStatusProperties) => {
 				variant="code"
 				visual="tiny"
 			>
-				{variant.charAt(0).toUpperCase() + variant.slice(1)}
+				{toTitle(variant)}
 			</Typography>
 		</div>
 	);

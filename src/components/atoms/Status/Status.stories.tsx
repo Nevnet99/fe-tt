@@ -24,3 +24,9 @@ export const Running: Story = {
 		variant: "running",
 	},
 };
+
+export const Failed: Story = {
+	args: {
+		variant: "failed",
+	},
+};
