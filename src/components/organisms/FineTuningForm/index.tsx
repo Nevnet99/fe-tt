@@ -31,12 +31,12 @@ const stepTitle = (step: number) => {
 		case 2:
 			return {
 				title: "Configure your run",
+				description:
+					"Adjust these parameters to control how your model learns, balances performance, and prevents overfitting during fine-tuning. See the docs for guidance on setting these parameters for optimal fine-tuning.",
 			};
 		case 3:
 			return {
 				title: "Review your job",
-				description:
-					"Adjust these parameters to control how your model learns, balances performance, and prevents overfitting during fine-tuning. See the docs for guidance on setting these parameters for optimal fine-tuning.",
 			};
 		default:
 			return {
@@ -144,13 +144,13 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 				setStep={setStateStep}
 				step={stateStep}
 			/>
-			<Card.Container className="relative">
-				<Card.Header>
+			<Card.Container className="relative" type="form">
+				<Card.Header type="form">
 					<Typography as="h2" variant="heading" visual="tiny">
 						{title}
 					</Typography>
 					<Typography
-						className="text-tertiary"
+						className="text-tertiary md:max-w-[90%]"
 						as="p"
 						variant="paragraph"
 						visual="small"
@@ -267,7 +267,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 
 				{stateStep === 3 && (
 					<>
-						<ul className="flex flex-col gap-4">
+						<ul className="flex flex-col gap-4 mb-8">
 							<li>
 								<ReviewCard title={values.name} icon="wrench" />
 							</li>
