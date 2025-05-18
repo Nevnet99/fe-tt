@@ -269,7 +269,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 					<>
 						<ul className="flex flex-col gap-4 mb-8">
 							<li>
-								<ReviewCard title={values.name} icon="wrench" />
+								<ReviewCard center title={values.name} icon="wrench" />
 							</li>
 							<li>
 								<ReviewCard

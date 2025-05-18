@@ -1,3 +1,4 @@
+import { twMerge } from "tailwind-merge";
 import { Typography } from "../../atoms/Typography";
 import { ChatBubble } from "../../icons/ChatBubble";
 import { Cog } from "../../icons/Cog";
@@ -7,15 +8,22 @@ export type TReviewCardProperties = {
 	title: string;
 	subtitle?: string[];
 	icon: "chat" | "cog" | "wrench";
+	center?: boolean;
 };
 
 export const ReviewCard = ({
 	title,
 	subtitle,
 	icon,
+	center = false,
 }: TReviewCardProperties) => {
 	return (
-		<article className="flex gap-4 border border-border-primary p-4 rounded-lg">
+		<article
+			className={twMerge(
+				"flex gap-4 border border-border-primary p-4 rounded-lg",
+				center && "items-center",
+			)}
+		>
 			<div>
 				{icon === "chat" && <ChatBubble />}
 				{icon === "cog" && <Cog />}
