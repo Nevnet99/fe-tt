@@ -33,6 +33,7 @@ This project is a web application that allows users to fine-tune a model using a
 - For the future there is potential to move some of the date logic into the utils folder, just to handle it across the board,
 but since it's just used in the table in this example I decided to leave it with the table.
 - Loading states, could be a bit more pretty also, but serve their purpose.
+- Suspense, I could clean up some of the components to be suspenseful, but it's just not in my workflow yet. 
   
 
 
