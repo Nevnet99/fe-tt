@@ -3,6 +3,15 @@ import { queryClient } from "@/lib/QueryProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
+type TJobResponse = {
+  jobs: TJob[]
+  summary: {
+    completed: number
+    running: number
+    failed: number
+  }
+}
+
 export type TJob = {
   id: string;
   name: string;
@@ -29,8 +38,9 @@ export type TJobInput = {
 export const useJobs = ({ id, fetchOnInit = false }: { id?: string, fetchOnInit?: boolean }) => {
   const {  ...getJobs } = useQuery({
     queryKey: ['jobs'],
-    queryFn: () => api.get<TJob[]>('/jobs'),
-    enabled: fetchOnInit
+    queryFn: () => api.get<TJobResponse>('/jobs'),
+    enabled: fetchOnInit,
+    refetchInterval: 5000,
   })
 
   const {  ...createJob } = useMutation({

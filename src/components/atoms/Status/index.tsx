@@ -3,17 +3,19 @@ import { Typography } from "../Typography";
 
 export type TStatusProperties = {
 	className?: string;
-	variant: "completed" | "running";
+	variant: "completed" | "running" | "failed";
 };
 
 const styles = {
 	container: {
 		completed: "bg-background-extensions-background-green ",
 		running: "bg-background-extensions-background-blue",
+		failed: "bg-background-extensions-background-red",
 	},
 	label: {
 		completed: "text-extensions-content-green",
 		running: "text-extensions-content-blue",
+		failed: "text-extensions-content-red",
 	},
 };
 
@@ -32,7 +34,7 @@ export const Status = ({ className, variant }: TStatusProperties) => {
 				variant="code"
 				visual="tiny"
 			>
-				{variant === "completed" ? "Completed" : "Running"}
+				{variant.charAt(0).toUpperCase() + variant.slice(1)}
 			</Typography>
 		</div>
 	);

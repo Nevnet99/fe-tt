@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar } from "@/components/atoms/Avatar";
 import { Button } from "@/components/atoms/Button";
 import { Card } from "@/components/atoms/Card";
@@ -5,9 +7,14 @@ import { CopyCode } from "@/components/atoms/CopyCode";
 import { Status } from "@/components/atoms/Status";
 import { Typography } from "@/components/atoms/Typography";
 import { Table } from "@/components/molecules/Table";
+import { useJobs } from "@/services/useJobs";
 import Link from "next/link";
 
 export default function Home() {
+	const {
+		getJobs: { data, isLoading },
+	} = useJobs({ fetchOnInit: true });
+
 	return (
 		<main className="grid grid-cols-12 gap-4 py-8 px-6">
 			<header className="col-span-12 flex items-center gap-6">
@@ -31,62 +38,50 @@ export default function Home() {
 					</Typography>
 				</Card.Header>
 
-				<Table
-					headers={[
-						{ id: "header-1", label: "Job ID", align: "left" },
-						{ id: "header-2", label: "Date", align: "left" },
-						{ id: "header-3", label: "Status", align: "right" },
-					]}
-					rows={[
-						{
-							id: "1-row",
-							cells: [
-								{
-									id: "1",
-									render: <CopyCode code="bbddd55ea1-41a-10e-9090" />,
-								},
-								{ id: "2", render: <p>Temp Date</p> },
-								{
-									id: "3",
-									render: <Status variant="running" />,
-									align: "right",
-								},
-							],
-						},
-						{
-							id: "2-row",
-							cells: [
-								{
-									id: "4",
-									render: <CopyCode code="bbddd55ea1-41a-10e-9090" />,
-								},
-								{ id: "5", render: <p>Temp Date</p> },
-								{
-									id: "6",
-									render: <Status variant="running" />,
-									align: "right",
-								},
-							],
-						},
-						{
-							id: "3-row",
-							cells: [
-								{
-									id: "7",
-									render: <CopyCode code="bbddd55ea1-41a-10e-9090" />,
-								},
-								{ id: "8", render: <p>Temp Date</p> },
-								{
-									id: "9",
-									render: <Status variant="completed" />,
-									align: "right",
-								},
-							],
-						},
-					]}
-				/>
+				{data && (
+					<Table
+						headers={[
+							{ id: "header-1", label: "Job ID", align: "left" },
+							{ id: "header-2", label: "Date", align: "left" },
+							{ id: "header-3", label: "Status", align: "right" },
+						]}
+						rows={
+							data?.data.jobs.map((job) => ({
+								id: job.id,
+								cells: [
+									{ id: "1", render: <CopyCode code={job.id} /> },
+									{ id: "2", render: <p>Temp Date</p> },
+									{
+										id: "3",
+										render: (
+											<Status
+												variant={
+													job.status.toLowerCase() as
+														| "completed"
+														| "running"
+														| "failed"
+												}
+											/>
+										),
+										align: "right",
+									},
+								],
+							})) || []
+						}
+					/>
+				)}
+				{isLoading && (
+					<div className="flex flex-col gap-2 animate-pulse">
+						<div className="h-8 bg-gray-200 rounded w-full" />
+						<div className="h-8 bg-gray-200 rounded w-full" />
+						<div className="h-8 bg-gray-200 rounded w-full" />
+						<div className="h-8 bg-gray-200 rounded w-full" />
+						<div className="h-8 bg-gray-200 rounded w-full" />
+						<div className="h-8 bg-gray-200 rounded w-full" />
+					</div>
+				)}
 			</Card.Container>
-			<Card.Container className="col-span-12 md:col-span-6">
+			<Card.Container className="col-span-12 md:col-span-6 h-fit">
 				<Card.Header>
 					<Typography as="h2" variant="heading" visual="tiny">
 						Get started
