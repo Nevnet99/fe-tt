@@ -9,7 +9,6 @@ import { Typography } from "@/components/atoms/Typography";
 import { Table } from "@/components/molecules/Table";
 import { useJobs } from "@/services/useJobs";
 import { format, formatDistanceToNow } from "date-fns";
-import Link from "next/link";
 import { HorizontalCard } from "@/components/organisms/HorizontalCard";
 
 export default function Home() {

@@ -15,7 +15,7 @@ const Container = ({
 	return (
 		<article
 			className={twMerge(
-				"bg-background-primary border-1 border-border-primary rounded-xl",
+				"bg-background-primary border-1 border-border-primary rounded-xl overflow-hidden",
 				padding && "px-6 pt-6 pb-8",
 				className,
 			)}

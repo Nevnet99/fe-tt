@@ -1,5 +1,7 @@
 import { Button } from "@/components/atoms/Button";
 import { Typography } from "@/components/atoms/Typography";
+import { ArrowLeft } from "@/components/icons/ArrowLeft";
+import { ColourWrench } from "@/components/icons/ColourWrench";
 import Link from "next/link";
 import React from "react";
 
@@ -20,16 +22,24 @@ export const FormHeader = ({
 		<header className="flex items-center gap-4 mb-18">
 			{step === 1 ? (
 				<Link href="/">
-					<Button variant="ghost" as="span">
-						Back
+					<Button aria-label="Back to home" variant="ghost" as="span">
+						<ArrowLeft />
 					</Button>
 				</Link>
 			) : (
-				<Button variant="ghost" as="button" onClick={() => setStep(step - 1)}>
-					Back
+				<Button
+					aria-label="Back"
+					type="button"
+					variant="ghost"
+					as="button"
+					onClick={() => setStep(step - 1)}
+				>
+					<ArrowLeft />
 				</Button>
 			)}
-			<div>Wrench</div>
+			<div className="flex items-center justify-center border border-border-primary rounded-lg p-2">
+				<ColourWrench />
+			</div>
 			<div>
 				<Typography
 					className="text-tertiary"
