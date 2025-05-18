@@ -34,7 +34,8 @@ This project is a web application that allows users to fine-tune a model using a
 but since it's just used in the table in this example I decided to leave it with the table.
 - Loading states, could be a bit more pretty also, but serve their purpose.
 - Suspense, I could clean up some of the components to be suspenseful, but it's just not in my workflow yet. 
-  
+- Tailwind variants, I could've split out some of the styles into variants, but I decided to keep it simple for this task.
+- Potentially used asChild props to clean up some of the edge cases with Typography.
 
 
 
