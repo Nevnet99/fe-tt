@@ -17,6 +17,7 @@ import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReviewCard } from "@/components/molecules/ReviewCard";
+import { ErrorNotice } from "@/components/molecules/ErrorNotice";
 
 type FineTuningFormProperties = {
 	className?: string;
@@ -26,7 +27,7 @@ const stepTitle = (step: number) => {
 	switch (step) {
 		case 1:
 			return {
-				title: "Setup your run",
+				title: "Set up your run",
 			};
 		case 2:
 			return {
@@ -40,7 +41,7 @@ const stepTitle = (step: number) => {
 			};
 		default:
 			return {
-				title: "Setup your run",
+				title: "Set up your run",
 			};
 	}
 };
@@ -70,11 +71,12 @@ const formSchema = z
 			.number()
 			.min(0, { message: "Learning rate must be ≥ 0" })
 			.max(1, { message: "Learning rate must be ≤ 1" }),
+		epochTotalError: z.string().optional(),
 	})
 	.refine((data) => data.warmupEpochs + data.evaluationEpochs <= data.epochs, {
 		message:
 			"Sum of warmupEpochs and evaluationEpochs must not exceed total epochs.",
-		path: ["evaluationEpochs"],
+		path: ["epochTotalError"],
 	});
 
 export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
@@ -150,7 +152,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 						{title}
 					</Typography>
 					<Typography
-						className="text-tertiary md:max-w-[90%]"
+						className="text-tertiary md:max-w-[90%] mt-4"
 						as="p"
 						variant="paragraph"
 						visual="small"
@@ -208,61 +210,66 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 				)}
 
 				{stateStep === 2 && (
-					<div className="grid grid-cols-2 gap-10">
-						<div className="w-1/2">
-							<RHFControllerNumberInput
-								label="Epochs"
-								id="epochs"
-								errorId="epochs-error"
-								control={control}
-								name="epochs"
-								error={errors.epochs?.message}
-								helper={
-									"Number of times the model sees the full dataset during training"
-								}
-							/>
-						</div>
-						<div className="w-1/2">
-							<RHFControllerNumberInput
-								label="Warmup epochs"
-								id="warmup-epochs"
-								errorId="warmup-epochs-error"
-								control={control}
-								name="warmupEpochs"
-								error={errors.warmupEpochs?.message}
-								helper="Gradually increases the learning rate at the start of training"
-							/>
-						</div>
-						<div className="w-1/2">
-							<RHFControllerNumberInput
-								label="Evaluation epochs"
-								id="evaluation-epochs"
-								errorId="evaluation-epochs-error"
-								control={control}
-								name="evaluationEpochs"
-								error={errors.evaluationEpochs?.message}
-								helper="How often the model is evaluated during training"
-							/>
-						</div>
-						<div className="w-1/2">
-							<TextField
-								id="learning-rate"
-								errorId="learning-rate-error"
-								label="Learning rate"
-								error={errors.learningRate?.message}
-								helper="Controls how much the model updates during training"
-								{...register("learningRate", { valueAsNumber: true })}
-							/>
-						</div>
+					<>
+						{errors.epochTotalError && (
+							<ErrorNotice message={errors.epochTotalError.message} />
+						)}
+						<div className="grid grid-cols-2 gap-10">
+							<div className="w-1/2">
+								<RHFControllerNumberInput
+									label="Epochs"
+									id="epochs"
+									errorId="epochs-error"
+									control={control}
+									name="epochs"
+									error={errors.epochs?.message}
+									helper={
+										"Number of times the model sees the full dataset during training"
+									}
+								/>
+							</div>
+							<div className="w-1/2">
+								<RHFControllerNumberInput
+									label="Warmup Epochs"
+									id="warmup-epochs"
+									errorId="warmup-epochs-error"
+									control={control}
+									name="warmupEpochs"
+									error={errors.warmupEpochs?.message}
+									helper="Gradually increases the learning rate at the start of training"
+								/>
+							</div>
+							<div className="w-1/2">
+								<RHFControllerNumberInput
+									label="Evaluation Epochs"
+									id="evaluation-epochs"
+									errorId="evaluation-epochs-error"
+									control={control}
+									name="evaluationEpochs"
+									error={errors.evaluationEpochs?.message}
+									helper="How often the model is evaluated during training"
+								/>
+							</div>
+							<div className="w-1/2">
+								<TextField
+									id="learning-rate"
+									errorId="learning-rate-error"
+									label="Learning rate"
+									error={errors.learningRate?.message}
+									helper="Controls how much the model updates during training"
+									{...register("learningRate", { valueAsNumber: true })}
+								/>
+							</div>
 
-						<Button
-							className="w-1/4 h-fit"
-							variant="primary"
-							onClick={() => handleStep(3)}
-						>
-							Next: Review
-						</Button>
-					</div>
+							<Button
+								className="w-1/4 h-fit"
+								variant="primary"
+								onClick={() => handleStep(3)}
+							>
+								Next: Review
+							</Button>
+						</div>
+					</>
 				)}
 
 				{stateStep === 3 && (
@@ -295,7 +302,7 @@ export const FineTuningForm = ({ className }: FineTuningFormProperties) => {
 							</li>
 						</ul>
 						<Button variant="primary" className="w-1/4 h-fit" type="submit">
-							Start fine tuning
+							Start fine-tuning
 						</Button>
 					</>
 				)}

@@ -56,8 +56,8 @@ export const useJobs = ({ id, fetchOnInit = false }: { id?: string, fetchOnInit?
         id: 'job-created'
       })
     },
-    onError: () => {
-      toast.error('Failed to create job', {
+    onError: (error) => {
+      toast.error(`Failed to create job: ${error.message}`, {
         id: 'job-created'
       })
     }
@@ -76,8 +76,8 @@ export const useJobs = ({ id, fetchOnInit = false }: { id?: string, fetchOnInit?
         id: 'job-deleted'
       })
     },
-    onError: () => {
-      toast.error('Failed to delete job', {
+    onError: (error) => {
+      toast.error(`Failed to delete job: ${error.message}`, {
         id: 'job-deleted'
       })
     }

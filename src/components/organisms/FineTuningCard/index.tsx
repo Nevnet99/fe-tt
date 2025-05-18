@@ -1,9 +1,10 @@
 "use client";
 
+import { Button } from "@/components/atoms/Button";
 import { Card } from "@/components/atoms/Card";
-import { PieChart } from "@/components/atoms/PieChart";
 import { Status } from "@/components/atoms/Status";
 import { Typography } from "@/components/atoms/Typography";
+import { Close } from "@/components/icons/Delete";
 import { CopyCode } from "@/components/molecules/CopyCode";
 import { SummaryChartCard } from "@/components/molecules/SummaryChartCard";
 import { Table } from "@/components/molecules/Table";
@@ -14,15 +15,20 @@ import React from "react";
 export const FineTuningCard = () => {
 	const {
 		getJobs: { data, isLoading },
+		deleteJob: { mutate: deleteJob },
 	} = useJobs({ fetchOnInit: true });
 
 	const summary = data?.data.summary;
+
+	const handleDeleteJob = (id: string) => {
+		deleteJob(id);
+	};
 
 	return (
 		<Card.Container className="col-span-12 md:col-span-6">
 			<Card.Header>
 				<Typography as="h2" variant="heading" visual="tiny">
-					Fine tuning usage
+					Fine-tuning usage
 				</Typography>
 				<Typography
 					className="text-tertiary"
@@ -47,6 +53,7 @@ export const FineTuningCard = () => {
 						{ id: "header-1", label: "Job ID", align: "left" },
 						{ id: "header-2", label: "Date", align: "left" },
 						{ id: "header-3", label: "Status", align: "right" },
+						{ id: "header-4", label: "Actions", align: "right" },
 					]}
 					rows={
 						data?.data.jobs.map((job) => ({
@@ -89,6 +96,21 @@ export const FineTuningCard = () => {
 													| "failed"
 											}
 										/>
+									),
+									align: "right",
+								},
+								{
+									id: "4",
+									render: (
+										<Button
+											fill
+											variant="ghost"
+											onlyIcon
+											title="Delete"
+											onClick={() => handleDeleteJob(job.id)}
+										>
+											<Close />
+										</Button>
 									),
 									align: "right",
 								},

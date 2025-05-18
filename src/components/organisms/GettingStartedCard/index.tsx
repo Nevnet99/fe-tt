@@ -7,7 +7,7 @@ export const GettingStartedCard = () => {
 		<Card.Container className="col-span-12 md:col-span-6 h-fit">
 			<Card.Header>
 				<Typography as="h2" variant="heading" visual="tiny">
-					Get started
+					Get Started
 				</Typography>
 			</Card.Header>
 			<HorizontalCard
