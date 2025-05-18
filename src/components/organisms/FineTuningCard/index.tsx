@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "@/components/atoms/Button";
-import { Card } from "@/components/atoms/Card";
-import { Status } from "@/components/atoms/Status";
-import { Typography } from "@/components/atoms/Typography";
-import { Close } from "@/components/icons/Delete";
-import { CopyCode } from "@/components/molecules/CopyCode";
-import { ErrorNotice } from "@/components/molecules/ErrorNotice";
-import { SummaryChartCard } from "@/components/molecules/SummaryChartCard";
-import { Table } from "@/components/molecules/Table";
-import { useJobs } from "@/services/useJobs";
+import { Button } from "../../atoms/Button";
+import { Card } from "../../atoms/Card";
+import { Status } from "../../atoms/Status";
+import { Typography } from "../../atoms/Typography";
+import { Close } from "../../icons/Delete";
+import { CopyCode } from "../../molecules/CopyCode";
+import { ErrorNotice } from "../../molecules/ErrorNotice";
+import { SummaryChartCard } from "../../molecules/SummaryChartCard";
+import { Table } from "../../molecules/Table";
+import { useJobs } from "../../../services/useJobs";
 import { format, formatDistanceToNow } from "date-fns";
 import React from "react";
 
@@ -117,6 +117,7 @@ export const FineTuningCard = () => {
 											onlyIcon
 											title="Delete"
 											onClick={() => handleDeleteJob(job.id)}
+											aria-label="Delete job"
 										>
 											<Close />
 										</Button>
@@ -129,7 +130,10 @@ export const FineTuningCard = () => {
 				/>
 			)}
 			{isLoading && (
-				<div className="flex flex-col gap-2 animate-pulse">
+				<div
+					data-testid="loading-skeleton"
+					className="flex flex-col gap-2 animate-pulse"
+				>
 					<div className="h-8 bg-gray-200 rounded w-full" />
 					<div className="h-8 bg-gray-200 rounded w-full" />
 					<div className="h-8 bg-gray-200 rounded w-full" />

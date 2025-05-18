@@ -1,5 +1,5 @@
-import { Card } from "@/components/atoms/Card";
-import { Typography } from "@/components/atoms/Typography";
+import { Card } from "../../atoms/Card";
+import { Typography } from "../../atoms/Typography";
 import { HorizontalCard } from "../HorizontalCard";
 
 export const GettingStartedCard = () => {

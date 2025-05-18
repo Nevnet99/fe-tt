@@ -1,7 +1,7 @@
-import { Button } from "@/components/atoms/Button";
-import { Typography } from "@/components/atoms/Typography";
-import { ArrowLeft } from "@/components/icons/ArrowLeft";
-import { ColourWrench } from "@/components/icons/ColourWrench";
+import { Button } from "../../atoms/Button";
+import { Typography } from "../../atoms/Typography";
+import { ArrowLeft } from "../../icons/ArrowLeft";
+import { ColourWrench } from "../../icons/ColourWrench";
 import Link from "next/link";
 import React from "react";
 

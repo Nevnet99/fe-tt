@@ -1,5 +1,5 @@
-import { Avatar } from "@/components/atoms/Avatar";
-import { Typography } from "@/components/atoms/Typography";
+import { Avatar } from "../../atoms/Avatar";
+import { Typography } from "../../atoms/Typography";
 
 export const OrganizationHeader = () => {
 	return (

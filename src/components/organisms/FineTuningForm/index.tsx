@@ -1,23 +1,23 @@
 "use client";
 
-import { Button } from "@/components/atoms/Button";
-import { Card } from "@/components/atoms/Card";
-import { RHFControllerNumberInput } from "@/components/atoms/NumberInput";
-import { Select } from "@/components/atoms/Select";
-import { TextField } from "@/components/atoms/TextField";
-import { Typography } from "@/components/atoms/Typography";
-import { FormHeader } from "@/components/molecules/FormHeader";
-import { FormProgress } from "@/components/molecules/FormProgress";
-import { useJobs } from "@/services/useJobs";
-import { useModels } from "@/services/useModels";
+import { Button } from "../../atoms/Button";
+import { Card } from "../../atoms/Card";
+import { RHFControllerNumberInput } from "../../atoms/NumberInput";
+import { Select } from "../../atoms/Select";
+import { TextField } from "../../atoms/TextField";
+import { Typography } from "../../atoms/Typography";
+import { FormHeader } from "../../molecules/FormHeader";
+import { FormProgress } from "../../molecules/FormProgress";
+import { useJobs } from "../../../services/useJobs";
+import { useModels } from "../../../services/useModels";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReviewCard } from "@/components/molecules/ReviewCard";
-import { ErrorNotice } from "@/components/molecules/ErrorNotice";
+import { ReviewCard } from "../../molecules/ReviewCard";
+import { ErrorNotice } from "../../molecules/ErrorNotice";
 
 type FineTuningFormProperties = {
 	className?: string;

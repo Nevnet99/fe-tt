@@ -1,5 +1,5 @@
-import api from "@/lib/axios";
-import { queryClient } from "@/lib/QueryProvider";
+import api from "../lib/axios";
+import { queryClient } from "../lib/QueryProvider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 

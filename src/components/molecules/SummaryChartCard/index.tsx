@@ -3,7 +3,7 @@ import { PieChart } from "../../atoms/PieChart";
 import { Typography } from "../../atoms/Typography";
 import { toTitle } from "../../../utils/toTitle";
 import React from "react";
-import { Pip } from "@/components/atoms/Pip";
+import { Pip } from "../../atoms/Pip";
 import { twMerge } from "tailwind-merge";
 
 type TSummaryChartCardProperties = {

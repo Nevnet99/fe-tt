@@ -1,4 +1,4 @@
-import { Typography } from "@/components/atoms/Typography";
+import { Typography } from "../../atoms/Typography";
 import { twMerge } from "tailwind-merge";
 export const ErrorNotice = ({
 	className,
